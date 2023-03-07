@@ -1,0 +1,1 @@
+export const INITIALURL = "https://rickandmortyapi.com/api/character"
