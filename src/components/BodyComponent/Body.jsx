@@ -6,8 +6,10 @@ const Body = ({charactersToShow}) =>{
     const [characterToShow, setCharacterToShow] = useState([])
 
     useEffect(()=>{
-        setCharacterToShow(charactersToShow)
-    },[])
+        if(charactersToShow){
+            setCharacterToShow(charactersToShow)
+        }    
+    },[charactersToShow])
 
     return(
         <section className={styles.charactersGrid}>

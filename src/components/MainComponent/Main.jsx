@@ -2,23 +2,28 @@ import React, { useEffect, useState } from "react";
 import Header  from "../HeaderComponent/Header";
 import Body from "../BodyComponent/Body";
 import styles from  './Main.module.scss';
-import {getCharacterPage} from '../../networking/networkingApi';
 import {INITIALURL} from '../../constants';
 
 const Main = () =>{
 
     const [infoPage, setInfoPage] = useState({})
+    const [isLoading, setIsLoading] = useState(true);
 
-    const handleSetInfoPage = (element) =>{
-        setInfoPage(element)
+    const fetchExample = async()  => {
+        try {
+          await fetch('https://rickandmortyapi.com/api/character')
+          .then((response) => response.json())
+          .then((page) => {
+            setInfoPage(page); // ⬅️ Guardar datos
+            setIsLoading(false)
+          })
+        } catch (error) {
+          console.log('Hubo un problema con la petición Fetch:' + error.message);
+        }
     }
 
-    useEffect((() =>{
-        const fetchData = async() => {
-            const data = await getCharacterPage(INITIALURL)
-            handleSetInfoPage(data)
-        }
-        fetchData()  
+    useEffect((()=>{
+        fetchExample()
     }),[])
 
     return(
