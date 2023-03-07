@@ -1,11 +1,11 @@
 import React from "react";
+import styles from './Header.module.scss';
 
-
-const Header = ({...props}) =>{
+const Header = () =>{
     return(
-        <div {...props} >
-            Rick And Morty Page 
-        </div>
+        <section className={styles.header}>
+            <h2 > Rick and Morty</h2>
+        </section>
     )
 }
 
