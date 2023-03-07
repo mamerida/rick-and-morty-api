@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Body.module.scss"
 import CharacterCard from "../CharacterCard/CharacterCard";
+import PlusButton from "../CharacterCard/PlusButton";
 
-const Body = ({charactersToShow}) =>{
+const Body = ({charactersToShow,...props}) =>{
     const [characterToShow, setCharacterToShow] = useState([])
 
     useEffect(()=>{
@@ -16,6 +17,7 @@ const Body = ({charactersToShow}) =>{
             {characterToShow && characterToShow.map((character)=>{
                 return <CharacterCard characterData={character} key={character.id} />
             })}
+            <PlusButton {...props}/>
         </section>
     )
 }

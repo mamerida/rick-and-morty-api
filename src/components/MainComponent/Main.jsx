@@ -6,16 +6,30 @@ import {INITIALURL} from '../../constants';
 
 const Main = () =>{
 
-    const [infoPage, setInfoPage] = useState({})
+    const [characterList, setCharacterList] = useState([])
+    const [nextPage, setNextPage] = useState({})
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchExample = async()  => {
+    const getCharacterList = () =>{
+        return characterList
+    }
+
+    const setElementsOnScrenn = ({page}) =>{
+      setNextPage(page.info.next);
+      let characterOnScreen = getCharacterList()
+      characterOnScreen = characterOnScreen.concat(page.results)
+      setCharacterList(characterOnScreen)
+      setIsLoading(false);
+    }
+
+    const fetchRickAndMortyApi = async(url,search)  => {
         try {
-          await fetch('https://rickandmortyapi.com/api/character')
+          await fetch(url)
           .then((response) => response.json())
           .then((page) => {
-            setInfoPage(page); // ⬅️ Guardar datos
-            setIsLoading(false)
+            if(!search){
+              setElementsOnScrenn({page})
+            }
           })
         } catch (error) {
           console.log('Hubo un problema con la petición Fetch:' + error.message);
@@ -23,13 +37,13 @@ const Main = () =>{
     }
 
     useEffect((()=>{
-        fetchExample()
+        fetchRickAndMortyApi(INITIALURL)
     }),[])
 
     return(
         <section className={styles.mainPage}>
             <Header className={styles.headerContainer}/>
-            <Body charactersToShow={infoPage.results} />
+            <Body charactersToShow={characterList} nextPage={nextPage} fetchRickAndMortyApi={fetchRickAndMortyApi}/>
         </section>
     )
 }
