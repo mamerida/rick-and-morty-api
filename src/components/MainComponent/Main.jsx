@@ -22,9 +22,9 @@ const Main = () =>{
       setIsLoading(false);
     }
 
-    const fetchRickAndMortyApi = async(url,search)  => {
+    const fetchRickAndMortyApi = (url,search)  => {
         try {
-          await fetch(url)
+          fetch(url)
           .then((response) => response.json())
           .then((page) => {
             if(!search){
