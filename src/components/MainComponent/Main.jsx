@@ -3,6 +3,7 @@ import Header  from "../HeaderComponent/Header";
 import Body from "../BodyComponent/Body";
 import styles from  './Main.module.scss';
 import {INITIALURL} from '../../constants';
+import CharacterModal from "../ModalCharacter/ModalCharacter";
 
 const Main = () =>{
 
@@ -41,10 +42,10 @@ const Main = () =>{
     }),[])
 
     return(
-        <section className={styles.mainPage}>
-            <Header className={styles.headerContainer}/>
-            <Body charactersToShow={characterList} nextPage={nextPage} fetchRickAndMortyApi={fetchRickAndMortyApi}/>
-        </section>
+      <section className={styles.mainPage}>
+          <Header className={styles.headerContainer}/>
+          <Body charactersToShow={characterList} nextPage={nextPage} fetchRickAndMortyApi={fetchRickAndMortyApi}/>
+      </section>
     )
 }
 

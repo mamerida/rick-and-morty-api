@@ -1,0 +1,16 @@
+.bodyCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size:x-large;
+    ul{
+        list-style-type: none; 
+    }
+}
+.principal, .btn-primary .btn-primary:active, .btn-hover-border-color {
+    background-color:#1b6f20  !important;
+}
+.btn-primary:hover, .btn-primary:visited{
+    background-color:#15591a  !important;
+}
