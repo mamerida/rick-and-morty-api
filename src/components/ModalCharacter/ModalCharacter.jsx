@@ -1,8 +1,19 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import style from './Main.module.scss';
+import {  useDispatch  } from "react-redux";
+import {addCharacterToSpace} from '../../reducers/characterSlices' 
 
 const CharacterModal = ({character, showForm}) => {
+    const dispatch = useDispatch();
+
+    const sendToSpace = () =>{
+        const payload = {
+            character : character
+        }
+        dispatch(addCharacterToSpace(payload))
+    }
+
   return (
     <Modal 
         show={character} 
@@ -27,7 +38,10 @@ const CharacterModal = ({character, showForm}) => {
             <Button variant="secondary" onClick={showForm}>
             Close
             </Button>
-            <Button variant="primary" className={style.principal} onClick={showForm}>
+            <Button variant="primary" className={style.principal} onClick={()=>{
+                showForm()
+                sendToSpace()
+            }}>
             Add to my Tripulation
             </Button>
         </Modal.Footer>

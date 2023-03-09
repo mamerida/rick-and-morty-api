@@ -10,7 +10,8 @@ const Main = () =>{
 
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
-    const {nextPage, charactersToShow} = useSelector(state => state.characters)
+    const {nextPage, charactersToShow } = useSelector(state => state.characters)
+
 
     const setElementsOnScrenn = ({page}) =>{
       const payload = {
@@ -24,7 +25,6 @@ const Main = () =>{
     }
 
     const fetchRickAndMortyApi = (url,search)  => {
-        try {
           fetch(url)
           .then((response) => response.json())
           .then((page) => {
@@ -32,9 +32,10 @@ const Main = () =>{
               setElementsOnScrenn({page})
             }
           })
-        } catch (error) {
-          console.log('Hubo un problema con la petición Fetch:' + error.message);
-        }
+          .catch((error)=>{
+            console.log(error)
+          })
+        
     }
 
     useEffect((()=>{
