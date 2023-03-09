@@ -3,23 +3,23 @@ import Header  from "../HeaderComponent/Header";
 import Body from "../BodyComponent/Body";
 import styles from  './Main.module.scss';
 import {INITIALURL} from '../../constants';
-import CharacterModal from "../ModalCharacter/ModalCharacter";
+import { useSelector, useDispatch  } from "react-redux";
+import {setCharacters} from '../../reducers/characterSlices' 
 
 const Main = () =>{
 
-    const [characterList, setCharacterList] = useState([])
-    const [nextPage, setNextPage] = useState({})
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
-
-    const getCharacterList = () =>{
-        return characterList
-    }
+    const {nextPage, charactersToShow} = useSelector(state => state.characters)
 
     const setElementsOnScrenn = ({page}) =>{
-      setNextPage(page.info.next);
-      let characterOnScreen = getCharacterList()
-      characterOnScreen = characterOnScreen.concat(page.results)
-      setCharacterList(characterOnScreen)
+      const payload = {
+        next : "",
+        results: [] 
+      }
+      payload.next = page.info.next
+      payload.results = page.results
+      dispatch(setCharacters(payload))
       setIsLoading(false);
     }
 
@@ -44,7 +44,7 @@ const Main = () =>{
     return(
       <section className={styles.mainPage}>
           <Header className={styles.headerContainer}/>
-          <Body charactersToShow={characterList} nextPage={nextPage} fetchRickAndMortyApi={fetchRickAndMortyApi}/>
+          <Body charactersToShow={charactersToShow} nextPage={nextPage} fetchRickAndMortyApi={fetchRickAndMortyApi}/>
       </section>
     )
 }
