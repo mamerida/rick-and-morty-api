@@ -22,7 +22,7 @@ const Main = () =>{
       payload.results = page.results
       dispatch(setCharacters(payload))
       setIsLoading(false);
-    },[])
+    },[dispatch])
 
     const fetchRickAndMortyApi = useCallback((url,search)=>{
       fetch(url)
@@ -35,11 +35,11 @@ const Main = () =>{
       .catch((error)=>{
         console.log(error)
       })
-    },[])
+    },[setElementsOnScrenn])
 
     useEffect((()=>{
         fetchRickAndMortyApi(INITIALURL)
-    }),[])
+    }),[fetchRickAndMortyApi])
 
     return(
       <section className={styles.mainPage}>
