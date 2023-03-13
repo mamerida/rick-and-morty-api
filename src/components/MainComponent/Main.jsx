@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Header  from "../HeaderComponent/Header";
 import Body from "../BodyComponent/Body";
 import styles from  './Main.module.scss';
@@ -13,7 +13,7 @@ const Main = () =>{
     const {nextPage, charactersToShow } = useSelector(state => state.characters)
 
 
-    const setElementsOnScrenn = ({page}) =>{
+    const setElementsOnScrenn = useCallback(({page}) =>{
       const payload = {
         next : "",
         results: [] 
@@ -22,21 +22,20 @@ const Main = () =>{
       payload.results = page.results
       dispatch(setCharacters(payload))
       setIsLoading(false);
-    }
+    },[])
 
-    const fetchRickAndMortyApi = (url,search)  => {
-          fetch(url)
-          .then((response) => response.json())
-          .then((page) => {
-            if(!search){
-              setElementsOnScrenn({page})
-            }
-          })
-          .catch((error)=>{
-            console.log(error)
-          })
-        
-    }
+    const fetchRickAndMortyApi = useCallback((url,search)=>{
+      fetch(url)
+      .then((response) => response.json())
+      .then((page) => {
+        if(!search){
+          setElementsOnScrenn({page})
+        }
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    },[])
 
     useEffect((()=>{
         fetchRickAndMortyApi(INITIALURL)
